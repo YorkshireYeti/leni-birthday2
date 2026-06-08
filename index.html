@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Leni</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
@@ -61,10 +62,12 @@ html, body {
 
 .title {
   position: absolute;
-  top: 5%;
-  width: 100%;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
   text-align: center;
-  font-size: 5em;
+  font-size: clamp(2rem, 7vw, 5rem);
   color: #ffe600;
   text-shadow: 3px 3px 0 #000, 6px 6px 0 #00c3ff;
   z-index: 10;
@@ -72,18 +75,20 @@ html, body {
 
 .island {
   position: absolute;
-  bottom: -60px;
+  bottom: -40px;
   left: 50%;
-  transform: translateX(-50%) scale(1.6);
+  transform: translateX(-50%);
+  width: 130vw;
+  max-width: none;
 }
 
 /* 🎂 CAKE WRAPPER */
 .cake-wrap {
   position: absolute;
-  top: 58%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
+  width: min(90vw, 420px);
   z-index: 5;
 }
 
@@ -140,172 +145,114 @@ html, body {
   0% { transform: translateY(110vh); }
   100% { transform: translateY(-200px); }
 }
-</style>
-html, body {
-margin: 0;
-height: 100%;
-overflow: hidden;
-font-family: 'Luckiest Guy', Arial;
-}
-
-/* CARD */
-#cardScreen {
-position: fixed;
-inset: 0;
-background: radial-gradient(circle, #0a1a2f, #000);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 9999;
-}
-
-.card {
-width: min(320px, 85vw);
-height: 200px;
-background: linear-gradient(135deg, #00c3ff, #0066ff);
-border-radius: 15px;
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-size: 1.4em;
-cursor: pointer;
-animation: glowPulse 2s infinite alternate, shake 3s infinite;
-}
-
-@keyframes glowPulse {
-from { box-shadow: 0 0 20px rgba(0,195,255,0.5); }
-to { box-shadow: 0 0 50px rgba(0,195,255,1); }
-}
-
-@keyframes shake {
-0%,100% { transform: rotate(0); }
-25% { transform: rotate(1deg); }
-75% { transform: rotate(-1deg); }
-}
-
-/* SCENE */
-#scene { display: none; }
-
-.sky {
-position: fixed;
-inset: 0;
-background: url('sky.jpg') center/cover no-repeat;
-}
-
-.title {
-position: absolute;
-top: 3%;
-left: 50%;
-transform: translateX(-50%);
-width: 100%;
-text-align: center;
-font-size: clamp(2.2rem, 8vw, 5rem);
-color: #ffe600;
-text-shadow: 3px 3px 0 #000, 6px 6px 0 #00c3ff;
-z-index: 10;
-}
-
-.island {
-position: absolute;
-bottom: -20px;
-left: 50%;
-transform: translateX(-50%);
-width: 120vw;
-max-width: 1200px;
-}
-
-.cake-wrap {
-position: absolute;
-top: 62%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: min(85vw, 380px);
-z-index: 5;
-}
-
-.cake {
-width: 100%;
-display: block;
-animation: rise 1s ease forwards;
-}
-
-@keyframes rise {
-from {
-transform: translateY(40px) scale(0.7);
-opacity: 0;
-}
-to {
-transform: translateY(0) scale(1);
-opacity: 1;
-}
-}
-
-.candle {
-position: absolute;
-width: 6px;
-height: 26px;
-background: white;
-opacity: 0;
-}
-
-.c1 { left: 34%; top: 52%; }
-.c2 { left: 43%; top: 50%; }
-.c3 { left: 50%; top: 49%; }
-.c4 { left: 57%; top: 50%; }
-.c5 { left: 66%; top: 52%; }
-
-.firework {
-position: absolute;
-width: 6px;
-height: 6px;
-border-radius: 50%;
-animation: explode 1s forwards;
-}
-
-@keyframes explode {
-to {
-transform: translate(var(--x), var(--y));
-opacity: 0;
-}
-}
-
-.balloon {
-position: absolute;
-width: 120px;
-animation: float linear infinite;
-}
-
-@keyframes float {
-0% { transform: translateY(110vh); }
-100% { transform: translateY(-200px); }
-}
-
-/* MOBILE */
 @media (max-width: 768px) {
 
-.title {
-top: 2%;
-font-size: 2.3rem;
-padding: 0 10px;
+  .title {
+    top: 60px;
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+
+  .cake-wrap {
+    width: 90vw;
+    top: 52%;
+  }
+
+  .island {
+    width: 180vw;
+    bottom: -80px;
+  }
+
+  .balloon {
+    width: 60px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- CARD -->
+<div id="cardScreen">
+  <div class="card" onclick="openCard()">🎁 Click to Open 🎁</div>
+</div>
+
+<!-- SCENE -->
+<div id="scene">
+
+  <div class="sky"></div>
+  <div class="title">🎉 HAPPY BIRTHDAY LENI 🎂</div>
+  <img src="island.png" class="island">
+
+  <!-- 🎂 CAKE + CANDLES -->
+  <div class="cake-wrap">
+    <img src="cake.png" class="cake">
+
+    <div class="candle c1" id="c1"></div>
+    <div class="candle c2" id="c2"></div>
+    <div class="candle c3" id="c3"></div>
+    <div class="candle c4" id="c4"></div>
+    <div class="candle c5" id="c5"></div>
+  </div>
+
+  <!-- 🎈 MANY BALLOONS -->
+  <img src="balloon1.png" class="balloon" style="left:5%; animation-duration:10s;">
+  <img src="balloon2.png" class="balloon" style="left:10%; animation-duration:12s;">
+  <img src="balloon3.png" class="balloon" style="left:15%; animation-duration:9s;">
+  <img src="balloon1.png" class="balloon" style="left:25%; animation-duration:11s;">
+  <img src="balloon2.png" class="balloon" style="left:35%; animation-duration:13s;">
+  <img src="balloon3.png" class="balloon" style="left:45%; animation-duration:8s;">
+  <img src="balloon1.png" class="balloon" style="left:55%; animation-duration:10s;">
+  <img src="balloon2.png" class="balloon" style="left:65%; animation-duration:12s;">
+  <img src="balloon3.png" class="balloon" style="left:75%; animation-duration:9s;">
+  <img src="balloon1.png" class="balloon" style="left:85%; animation-duration:11s;">
+  <img src="balloon2.png" class="balloon" style="left:95%; animation-duration:13s;">
+
+</div>
+
+<!-- AUDIO -->
+<audio id="music" loop>
+  <source src="happy-birthday.mp3">
+</audio>
+
+<script>
+function openCard() {
+  document.getElementById("cardScreen").style.display = "none";
+  document.getElementById("scene").style.display = "block";
+  document.getElementById("music").play();
+
+  const candles = ["c1","c2","c3","c4","c5"];
+
+  candles.forEach((id, i) => {
+    setTimeout(() => {
+      const c = document.getElementById(id);
+      c.style.opacity = 1;
+
+      const flame = document.createElement("div");
+      flame.className = "flame";
+      c.appendChild(flame);
+
+      if(i === candles.length - 1){
+        setTimeout(fireworks, 500);
+      }
+
+    }, i * 400);
+  });
 }
 
-.cake-wrap {
-width: 85vw;
-top: 60%;
+function fireworks(){
+  for(let i=0;i<100;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*40+"vh";
+    f.style.setProperty('--x',(Math.random()-0.5)*250+'px');
+    f.style.setProperty('--y',(Math.random()-0.5)*250+'px');
+    f.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(f);
+  }
 }
+</script>
 
-.island {
-width: 140vw;
-bottom: -10px;
-}
-
-.balloon {
-width: 70px;
-}
-
-.card {
-width: 85vw;
-max-width: 320px;
-}
-}
+</body>
+</html>
